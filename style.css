@@ -1,0 +1,273 @@
+/* ---- Variables ---- */
+:root {
+  --bg: #f5f0eb;
+  --surface: #fffdf9;
+  --header-bg: #1a1a2e;
+  --accent: #ff6b6b;
+  --accent2: #ffd166;
+  --text: #2d2d2d;
+  --muted: #888;
+  --correct: #06d6a0;
+  --wrong: #ef233c;
+  --border-idle: #d4cfc9;
+  --border-typing: #74b3ff;
+  --border-error: #ef233c;
+  --border-done: #06d6a0;
+  --radius: 16px;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ---- Header ---- */
+.masthead {
+  background: var(--header-bg);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 20px rgba(0,0,0,.35);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: .7; }
+}
+
+.brand h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: white;
+}
+
+.timer {
+  font-family: 'DM Mono', monospace;
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--accent2);
+  letter-spacing: 2px;
+}
+
+.header-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,.55);
+}
+
+.header-meta span { display: flex; gap: 0.4rem; }
+#wpm-display, #err-display { color: var(--accent2); font-weight: 500; }
+
+/* ---- Intro ---- */
+.intro {
+  background: var(--accent);
+  padding: 0.9rem 2rem;
+  text-align: center;
+}
+
+.intro p {
+  max-width: 520px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  opacity: .9;
+}
+
+/* ---- Test Area ---- */
+.test-area {
+  max-width: 620px;
+  margin: 2.5rem auto 4rem;
+  padding: 0 1.5rem;
+}
+
+/* ---- Origin Text — letter spans ---- */
+#origin-text {
+  background: var(--surface);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 1.4rem 1.6rem 1.2rem;
+  border: 2px solid var(--border-idle);
+  border-bottom: none;
+  min-height: 80px;
+  overflow: hidden;
+  position: relative;
+}
+
+#origin-text p {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  word-break: break-word;
+}
+
+/* Each letter is wrapped in a span by JS — text animation target */
+#origin-text .char {
+  display: inline-block;
+  transition: color 0.12s ease;
+  position: relative;
+}
+
+/* Correct character — green, then falls */
+#origin-text .char.correct {
+  color: var(--correct);
+}
+
+/* Wrong character — red, shakes */
+#origin-text .char.wrong {
+  color: var(--wrong);
+  animation: shake 0.35s ease both;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0) rotate(0deg); }
+  20% { transform: translateX(-4px) rotate(-3deg); }
+  40% { transform: translateX(4px) rotate(3deg); }
+  60% { transform: translateX(-3px) rotate(-2deg); }
+  80% { transform: translateX(3px) rotate(1deg); }
+}
+
+/* Fall & ragdoll keyframe — triggered by JS class */
+@keyframes ragdoll-fall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  30%  { transform: translateY(18px) rotate(var(--spin, 12deg)); opacity: .9; }
+  60%  { transform: translateY(60px) rotate(var(--spin2, -20deg)); opacity: .6; }
+  100% { transform: translateY(120px) rotate(var(--spin3, 30deg)); opacity: 0; }
+}
+
+#origin-text .char.fall {
+  animation: ragdoll-fall 0.55s cubic-bezier(.36,.07,.19,.97) forwards;
+  pointer-events: none;
+}
+
+/* ---- Textarea ---- */
+.test-wrapper {
+  border: 2.5px solid var(--border-idle);
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--surface);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.test-wrapper.typing { border-color: var(--border-typing); box-shadow: 0 0 0 3px rgba(116,179,255,.18); }
+.test-wrapper.error  { border-color: var(--border-error);  box-shadow: 0 0 0 3px rgba(239,35,60,.15); }
+.test-wrapper.done   { border-color: var(--border-done);   box-shadow: 0 0 0 4px rgba(6,214,160,.2);  }
+
+#test-area {
+  width: 100%;
+  padding: 1.2rem 1.4rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 1rem;
+  line-height: 1.8;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  resize: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+#test-area::placeholder { color: var(--muted); }
+
+/* ---- Bottom bar ---- */
+.bottom-bar {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#reset {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.55rem 1.3rem;
+  border-radius: 50px;
+  border: 2.5px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  cursor: pointer;
+  transition: background .2s, color .2s, transform .1s;
+}
+
+#reset:hover { background: var(--accent); color: white; }
+#reset:active { transform: scale(.96); }
+
+/* ---- Scores ---- */
+.scores-panel {
+  text-align: right;
+}
+
+.scores-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+#scores-list {
+  list-style: none;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+#scores-list li::before {
+  content: attr(data-rank) '. ';
+  color: var(--accent2);
+  font-weight: 700;
+}
+
+/* ---- Particle canvas — sits over everything for disintegration ---- */
+#particle-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 200;
+}
+
+/* ---- Completion flash overlay ---- */
+.complete-flash {
+  animation: flash 0.5s ease forwards;
+}
+
+@keyframes flash {
+  0%   { background: rgba(6,214,160,.25); }
+  100% { background: transparent; }
+}

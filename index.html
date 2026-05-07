@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Timed Typing Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <h1>typeit.</h1>
+    </div>
+    <div id="clock">
+      <span class="timer">00:00:00</span>
+    </div>
+    <div class="header-meta">
+      <span class="wpm-label">WPM <span id="wpm-display">—</span></span>
+      <span class="err-label">ERR <span id="err-display">0</span></span>
+    </div>
+  </header>
+
+  <main class="main">
+    <article class="intro">
+      <p>Match the text below — exactly. Timer starts on your first keystroke. Good luck!</p>
+    </article>
+
+    <section class="test-area">
+
+      <!-- Origin text — letters are wrapped in spans by JS for animation -->
+      <div id="origin-text">
+        <p></p>
+      </div>
+
+      <div class="test-wrapper" id="test-wrapper">
+        <textarea id="test-area" rows="5" placeholder="Start typing here…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+      </div>
+
+      <div class="bottom-bar">
+        <button id="reset">↺ Start Over</button>
+        <div class="scores-panel">
+          <span class="scores-title">Top 3</span>
+          <ol id="scores-list"></ol>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Particle canvas for disintegration animation -->
+  <canvas id="particle-canvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

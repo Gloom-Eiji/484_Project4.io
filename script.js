@@ -3,9 +3,10 @@ const sndClick   = new Audio('soundreality-button-4-214382.mp3');   // correct k
 const sndBuzz    = new Audio('logicallism-incorrect-buzzer-374194.mp3'); // wrong key
 const sndSuccess = new Audio('dragon-studio-correct-472358.mp3');   // test complete
 
-// Reduce buzzer volume so it isn't jarring
 sndBuzz.volume = 0.4;
 
+
+//audio effects functions:
 function playClick() {
   sndClick.currentTime = 0;
   sndClick.play().catch(() => {});
@@ -132,7 +133,7 @@ function spawnParticles(x, y, color) {
   }
 }
 
-function animateParticles() {
+function animateParticles() { // disentigration animation loop
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles = particles.filter(p => p.alpha > 0.02);
   for (const p of particles) {

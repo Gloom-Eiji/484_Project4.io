@@ -24,11 +24,14 @@ function playSuccess() {
 
 // ---- Text pool for random selection ----
 const textPool = [
-  "The quick brown fox jumps over the lazy dog near the riverbank.",
-  "Bright sunlight filtered through the tall pine trees on the mountain trail.",
-  "She typed furiously, her fingers barely keeping up with her racing thoughts.",
-  "Every great journey begins with a single step toward the unknown horizon.",
-  "The old clock on the wall ticked steadily through the quiet afternoon."
+  "The quick brown fox jumps over the lazy dog.",
+  "Bright sunlight filtered through the tall pine trees.",
+  "Pack my box with five dozen liquor jugs.",
+  "The five boxing wizards jump quickly.",
+  "Practice makes perfect, so keep typing daily.",
+  "Never underestimate the power of a good book.",
+  "Every great journey begins with a single step.",
+  "The old clock on the wall ticked steadily."
 ];
 
 // ---- DOM refs ----

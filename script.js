@@ -1,7 +1,7 @@
 // ---- Audio Objects (keyboard sound effects) ----
-const sndClick   = new Audio('soundreality-button-4-214382.mp3');   // correct key
-const sndBuzz    = new Audio('logicallism-incorrect-buzzer-374194.mp3'); // wrong key
-const sndSuccess = new Audio('dragon-studio-correct-472358.mp3');   // test complete
+const sndClick   = new Audio('./audio/soundreality-button-4-214382.mp3');   // correct key
+const sndBuzz    = new Audio('./audio/logicallism-incorrect-buzzer-374194.mp3'); // wrong key
+const sndSuccess = new Audio('./audio/dragon-studio-correct-472358.mp3');   // test complete
 
 sndBuzz.volume = 0.4;
 
